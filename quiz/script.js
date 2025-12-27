@@ -1,6 +1,6 @@
 const questions = [
   {
-    question: "What is HotStuff mainly used for?",
+    q: "What is HotStuff mainly used for?",
     options: [
       "NFT minting",
       "Blockchain consensus",
@@ -10,48 +10,48 @@ const questions = [
     answer: 1
   },
   {
-    question: "What problem does HotStuff improve compared to older BFT protocols?",
+    q: "Which problem does HotStuff improve over older BFT protocols?",
     options: [
-      "High energy consumption",
-      "Slow finality and complex communication",
       "High gas fees",
-      "Token inflation"
+      "Slow finality & communication",
+      "Token inflation",
+      "Energy consumption"
     ],
     answer: 1
   },
   {
-    question: "Which feature makes HotStuff scalable?",
+    q: "HotStuff was originally designed for which project?",
+    options: [
+      "Ethereum",
+      "Bitcoin",
+      "Diem (Libra)",
+      "Solana"
+    ],
+    answer: 2
+  },
+  {
+    q: "What makes HotStuff scalable?",
     options: [
       "Proof of Work",
       "Linear communication",
-      "Central authority",
-      "Mining rewards"
+      "Sharding",
+      "Central authority"
     ],
     answer: 1
   },
   {
-    question: "What does finality mean in HotStuff?",
+    q: "HotStuff belongs to which category?",
     options: [
-      "Transaction fee calculation",
-      "A block cannot be reverted once confirmed",
-      "Faster wallet sync",
-      "Token burning"
+      "DEX protocol",
+      "Layer 2 solution",
+      "BFT consensus protocol",
+      "Wallet framework"
     ],
-    answer: 1
-  },
-  {
-    question: "Who benefits from understanding HotStuff?",
-    options: [
-      "Developers",
-      "Researchers",
-      "Infrastructure builders",
-      "All of the above"
-    ],
-    answer: 3
+    answer: 2
   }
 ];
 
-let currentQuestion = 0;
+let index = 0;
 let score = 0;
 let timer;
 let timeLeft = 30;
@@ -67,59 +67,75 @@ const progressEl = document.getElementById("progress");
 const timerEl = document.getElementById("timer");
 const scoreText = document.getElementById("score-text");
 
-startBtn.addEventListener("click", startQuiz);
-
-function startQuiz() {
+startBtn.onclick = () => {
   startScreen.classList.remove("active");
   quizScreen.classList.add("active");
   loadQuestion();
-}
+};
 
 function loadQuestion() {
   clearInterval(timer);
   timeLeft = 30;
-  timerEl.textContent = timeLeft + "s";
+  timerEl.textContent = "30s";
 
-  const q = questions[currentQuestion];
-  progressEl.textContent = `Question ${currentQuestion + 1}/${questions.length}`;
-  questionEl.textContent = q.question;
+  const q = questions[index];
+  questionEl.textContent = q.q;
+  progressEl.textContent = `Question ${index + 1}/${questions.length}`;
   optionsEl.innerHTML = "";
 
-  q.options.forEach((option, index) => {
-    const btn = document.createElement("button");
-    btn.textContent = option;
-    btn.onclick = () => selectAnswer(index);
-    optionsEl.appendChild(btn);
+  q.options.forEach((opt, i) => {
+    const div = document.createElement("div");
+    div.className = "option";
+    div.innerHTML = `
+      <span class="option-letter">${String.fromCharCode(65 + i)}</span>
+      <span class="option-text">${opt}</span>
+    `;
+    div.onclick = () => selectOption(div, i);
+    optionsEl.appendChild(div);
   });
 
   timer = setInterval(() => {
     timeLeft--;
     timerEl.textContent = timeLeft + "s";
-    if (timeLeft === 0) {
-      nextQuestion();
-    }
+    if (timeLeft === 0) showCorrectAndNext();
   }, 1000);
 }
 
-function selectAnswer(index) {
-  if (index === questions[currentQuestion].answer) {
+function selectOption(selectedEl, selectedIndex) {
+  clearInterval(timer);
+
+  const correctIndex = questions[index].answer;
+  const allOptions = [...optionsEl.children];
+
+  // Disable further clicks
+  allOptions.forEach(opt => opt.onclick = null);
+
+  // Always show correct answer
+  allOptions[correctIndex].classList.add("correct");
+
+  // If user is wrong → mark selected as wrong
+  if (selectedIndex !== correctIndex) {
+    selectedEl.classList.add("wrong");
+  } else {
     score++;
   }
-  nextQuestion();
+
+  setTimeout(nextQuestion, 1500);
+}
+
+function showCorrectAndNext() {
+  const correctIndex = questions[index].answer;
+  optionsEl.children[correctIndex].classList.add("correct");
+  setTimeout(nextQuestion, 1500);
 }
 
 function nextQuestion() {
-  clearInterval(timer);
-  currentQuestion++;
-  if (currentQuestion < questions.length) {
+  index++;
+  if (index < questions.length) {
     loadQuestion();
   } else {
-    showResult();
+    quizScreen.classList.remove("active");
+    resultScreen.classList.add("active");
+    scoreText.textContent = `You scored ${score} out of ${questions.length}`;
   }
-}
-
-function showResult() {
-  quizScreen.classList.remove("active");
-  resultScreen.classList.add("active");
-  scoreText.textContent = `You scored ${score} out of ${questions.length}`;
 }
