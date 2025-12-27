@@ -2,46 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HotStuff Quiz</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <!-- Landing Screen -->
-  <div id="start-screen" class="screen active">
+  <!-- START SCREEN -->
+  <div id="start-screen" class="screen active card">
     <h1>Test Your HotStuff Knowledge</h1>
-    <p>Interactive quiz to check your understanding of the HotStuff consensus protocol.</p>
+    <p class="subtitle">
+      Interactive quiz to understand the HotStuff consensus protocol
+    </p>
 
-    <div class="info-box">
+    <div class="info-grid">
       <div>🧠 5 Questions</div>
-      <div>⏱️ 30 Seconds each</div>
-      <div>🏆 Score at the end</div>
+      <div>⏱️ 30s each</div>
+      <div>🏆 Score at end</div>
     </div>
 
-    <button id="start-btn">Start Quiz</button>
+    <button id="start-btn" class="primary-btn">Start Quiz</button>
+
+    <p class="learn">
+      Want to learn more?
+      <a href="https://docs.hotstuff.trade/" target="_blank">Read HotStuff Docs →</a>
+    </p>
   </div>
 
-  <!-- Quiz Screen -->
-  <div id="quiz-screen" class="screen">
+  <!-- QUIZ SCREEN -->
+  <div id="quiz-screen" class="screen card">
     <div class="top-bar">
-      <div id="progress">Question 1/5</div>
-      <div id="timer">30s</div>
+      <span id="progress">Question 1/5</span>
+      <span id="timer">30s</span>
     </div>
 
     <h2 id="question"></h2>
-    <div id="options"></div>
+    <div id="options" class="options"></div>
   </div>
 
-  <!-- Result Screen -->
-  <div id="result-screen" class="screen">
+  <!-- RESULT SCREEN -->
+  <div id="result-screen" class="screen card">
     <h1>Quiz Complete 🎉</h1>
     <p id="score-text"></p>
 
-    <button onclick="location.reload()">Try Again</button>
+    <button class="primary-btn" onclick="location.reload()">Try Again</button>
 
-    <footer>
-      made with 💚 by <a href="https://x.com/YOUR_TWITTER" target="_blank">@YOUR_TWITTER</a>
-    </footer>
+    <div class="footer">
+      <p class="learn">
+        Want to learn more about HotStuff?
+        <a href="https://docs.hotstuff.trade/" target="_blank">Read the docs →</a>
+      </p>
+
+      <p class="credit">
+        Built with 💚 by
+        <a href="https://x.com/TheEncryptedAnt" target="_blank">
+          @TheEncryptedAnt
+        </a>
+      </p>
+    </div>
   </div>
 
   <script src="script.js"></script>
