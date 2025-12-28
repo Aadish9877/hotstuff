@@ -119,3 +119,42 @@ a {
   font-size: 14px;
   color: var(--muted);
 }
+/* ===== Quiz Answer States ===== */
+
+/* default option */
+.option {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: #e6e6e6;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.option:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* ✅ correct answer */
+.option.correct {
+  background: rgba(46, 204, 113, 0.25);
+  border-color: #2ecc71;
+  color: #c9f7dc;
+}
+
+/* ❌ wrong answer */
+.option.wrong {
+  background: rgba(231, 76, 60, 0.25);
+  border-color: #e74c3c;
+  color: #ffd6d1;
+}
+
+/* disable click after answer */
+.option.disabled {
+  pointer-events: none;
+  opacity: 0.85;
+}
