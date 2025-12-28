@@ -1,6 +1,6 @@
 :root {
-  --bg: #0e120d;
-  --card-bg: rgba(255, 255, 255, 0.04);
+  --bg: #0b120d;
+  --card-bg: rgba(255, 255, 255, 0.05);
   --border: rgba(255, 255, 255, 0.08);
   --text: #e6e6e6;
   --muted: #a1a1a1;
@@ -14,7 +14,7 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(circle at top, #1a2018, var(--bg));
+  background: radial-gradient(circle at top, #142015, var(--bg));
   color: var(--text);
 }
 
@@ -25,7 +25,7 @@ body {
 
 .header-inner {
   max-width: 1100px;
-  margin: 0 auto;
+  margin: auto;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -33,13 +33,14 @@ body {
 }
 
 .logo {
-  width: 42px;
+  width: 36px;
+  height: 36px;
 }
 
 .brand h1 {
   margin: 0;
   font-size: 18px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .brand p {
@@ -50,19 +51,19 @@ body {
 
 /* Hero */
 .hero {
-  max-width: 1100px;
-  margin: 80px auto 0 auto;
+  max-width: 900px;
+  margin: 80px auto 60px;
   padding: 0 20px;
 }
 
 .hero h2 {
   font-size: 42px;
-  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 16px;
   color: var(--accent);
 }
 
 .hero p {
-  max-width: 720px;
   font-size: 16px;
   color: var(--muted);
 }
@@ -70,11 +71,11 @@ body {
 /* Cards */
 .cards {
   max-width: 1100px;
-  margin: 64px auto 0 auto;
-  padding: 0 20px;
+  margin: 60px auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  gap: 24px;
+  padding: 0 20px;
 }
 
 .card {
@@ -90,50 +91,63 @@ body {
 }
 
 .card h3 {
-  margin-top: 12px;
-  color: var(--accent);
+  margin-top: 8px;
 }
 
-.card p {
+/* How it works */
+.how-it-works {
+  max-width: 1100px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
+
+.how-it-works h2 {
+  font-size: 32px;
+  margin-bottom: 32px;
+}
+
+.how-it-works span {
   font-size: 14px;
   color: var(--muted);
 }
 
-/* What's coming next FIXED */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.step {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.step-number {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* What's next */
 .next-section {
-  max-width: 1100px;
-  margin: 100px auto 0 auto;
+  max-width: 900px;
+  margin: 80px auto;
   padding: 0 20px;
 }
 
 .next-section h2 {
-  font-size: 28px;
   margin-bottom: 24px;
 }
 
 .next-item {
-  max-width: 720px;
-}
-
-.next-item h3 {
-  margin-top: 24px;
-  color: var(--accent);
-}
-
-.next-item p {
-  color: var(--muted);
-  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 /* Footer */
 .footer {
-  margin: 120px 0 40px;
   text-align: center;
-  font-size: 13px;
+  padding: 40px 20px;
   color: var(--muted);
-}
-
-.footer a {
-  color: var(--accent);
-  text-decoration: none;
+  font-size: 14px;
 }
