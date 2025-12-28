@@ -1,0 +1,150 @@
+/* =========================
+   CODEX VISUAL EXPLAINER
+   Theme by @TheEncryptedAnt
+   ========================= */
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Colors inspired by Codex */
+:root {
+  --bg-dark: #0e120f;
+  --bg-card: #141914;
+  --accent-gold: #e8d9b0;
+  --accent-soft: #c9b98a;
+  --text-main: #f5f5f5;
+  --text-muted: #9aa09c;
+  --border-soft: rgba(232, 217, 176, 0.15);
+}
+
+/* Body */
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #1a201a, var(--bg-dark));
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 40px;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+}
+
+.brand h1 {
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  color: var(--accent-gold);
+}
+
+.brand p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Hero */
+.hero {
+  padding: 60px 40px 30px;
+  max-width: 1100px;
+}
+
+.hero h2 {
+  font-size: 38px;
+  margin-bottom: 16px;
+  color: var(--accent-gold);
+}
+
+.hero p {
+  max-width: 720px;
+  font-size: 17px;
+  color: var(--text-muted);
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+  padding: 40px;
+  max-width: 1200px;
+}
+
+.card {
+  background: linear-gradient(180deg, var(--bg-card), #0f130f);
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 26px;
+  position: relative;
+  transition: transform 0.25s ease, border 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent-soft);
+}
+
+.card-id {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.card h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--accent-gold);
+}
+
+.card p {
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 20px 60px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.footer a {
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h2 {
+    font-size: 30px;
+  }
+
+  .header {
+    padding: 22px;
+  }
+
+  .hero {
+    padding: 40px 22px 20px;
+  }
+
+  .cards {
+    padding: 22px;
+  }
+}
