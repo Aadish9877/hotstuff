@@ -135,22 +135,93 @@
   </footer>
 
   <script>
-    function check(btn, correct) {
-      const card = btn.closest(".quiz-card");
-      const options = card.querySelectorAll(".option");
-      const result = card.querySelector(".result");
+const quizData = [
+  {
+    q: "What is Codex primarily focused on?",
+    options: [
+      "NFT Trading",
+      "Stablecoins & Payments",
+      "Gaming",
+      "Social Media"
+    ],
+    answer: 1
+  },
+  {
+    q: "Codex is built on which blockchain?",
+    options: [
+      "Solana",
+      "Polygon",
+      "Ethereum",
+      "Avalanche"
+    ],
+    answer: 2
+  },
+  {
+    q: "What does native FX mean in Codex?",
+    options: [
+      "Off-chain swaps",
+      "NFT exchange",
+      "Onchain stablecoin swaps",
+      "Mining rewards"
+    ],
+    answer: 2
+  }
+];
 
-      options.forEach(o => o.disabled = true);
+let index = 0;
+let score = 0;
 
-      if (correct) {
-        btn.classList.add("correct");
-        result.textContent = "✅ Correct!";
-      } else {
-        btn.classList.add("wrong");
-        result.textContent = "❌ Not quite — try the flow again.";
-      }
-    }
-  </script>
+const questionEl = document.getElementById("question");
+const optionButtons = document.querySelectorAll(".options button");
+const feedback = document.getElementById("feedback");
+const nextBtn = document.getElementById("nextBtn");
+
+loadQuestion();
+
+function loadQuestion() {
+  feedback.innerText = "";
+  nextBtn.disabled = true;
+  const current = quizData[index];
+  questionEl.innerText = current.q;
+
+  optionButtons.forEach((btn, i) => {
+    btn.innerText = current.options[i];
+    btn.className = "";
+    btn.disabled = false;
+    btn.onclick = () => checkAnswer(i);
+  });
+}
+
+function checkAnswer(selected) {
+  optionButtons.forEach(b => b.disabled = true);
+  if (selected === quizData[index].answer) {
+    optionButtons[selected].classList.add("correct");
+    feedback.innerText = "✅ Correct!";
+    score++;
+  } else {
+    optionButtons[selected].classList.add("wrong");
+    feedback.innerText = "❌ Wrong answer";
+  }
+  nextBtn.disabled = false;
+}
+
+function nextQuestion() {
+  index++;
+  if (index < quizData.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.querySelector(".quiz-card").innerHTML = `
+    <h2>Quiz Completed 🎉</h2>
+    <p>Your Score: <strong>${score} / ${quizData.length}</strong></p>
+    <button onclick="location.reload()">Restart Quiz</button>
+  `;
+}
+</script>
 
 </body>
 </html>
