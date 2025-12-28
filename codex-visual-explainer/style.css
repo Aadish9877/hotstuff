@@ -1,10 +1,10 @@
 :root {
   --bg: #0b120d;
   --card: rgba(255,255,255,0.05);
-  --border: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.1);
   --text: #e6e6e6;
   --muted: #a1a1a1;
-  --accent: #e6d3a3;
+  --accent: #f1d99b;
 }
 
 * {
@@ -14,199 +14,108 @@
 body {
   margin: 0;
   font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(circle at top, #152116, #0b120d 70%);
+  background: radial-gradient(circle at top, #142015, var(--bg));
   color: var(--text);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
 }
 
 /* HEADER */
 .header {
-  padding: 24px 80px;
+  padding: 24px 0;
 }
 
 .header-inner {
+  max-width: 1100px;
+  margin: auto;
   display: flex;
-  align-items: center;
   gap: 16px;
+  align-items: center;
+  padding: 0 24px;
 }
 
 .logo {
-  width: 34px;
+  width: 44px;
+}
+
+.x-link {
+  font-size: 14px;
+  opacity: 0.85;
 }
 
 /* HERO */
-.hero {
-  padding: 80px 80px 40px;
-  max-width: 900px;
-}
-
 .hero h2 {
-  font-size: 42px;
-  margin-bottom: 12px;
+  font-size: 44px;
   color: var(--accent);
+  margin-bottom: 16px;
 }
 
 .hero p {
+  max-width: 640px;
   color: var(--muted);
-  line-height: 1.6;
 }
 
 /* FEATURES */
 .features {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
-  padding: 40px 80px;
 }
 
 .card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 18px;
   padding: 24px;
 }
 
-.card span {
-  color: var(--muted);
+.num {
   font-size: 12px;
+  opacity: 0.6;
 }
 
 .card h3 {
   margin: 8px 0;
-  color: var(--accent);
 }
 
-/* WHAT'S COMING NEXT — FIXED POSITION */
-.coming-next {
-  max-width: 520px;
-  margin-left: 160px;   /* 👈 यही CENTER SHIFT है */
-  margin-top: 120px;
-}
-
+/* COMING NEXT */
 .coming-next h2 {
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .next-item {
-  margin-bottom: 20px;
+  max-width: 520px;
+  margin-bottom: 24px;
 }
 
-.next-item h4 {
-  margin: 0;
-  color: var(--accent);
+/* QUIZ */
+.quiz-cta {
+  text-align: center;
 }
 
-.next-item p {
-  margin: 4px 0 0;
-  color: var(--muted);
-  line-height: 1.6;
+.btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #000;
+  font-weight: 600;
 }
 
 /* FOOTER */
-footer {
-  margin-top: 120px;
-  padding: 32px;
+.footer {
+  padding: 40px 24px;
   text-align: center;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-/* ANIMATIONS */
-.fade {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s ease forwards;
-}
-
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* MOBILE */
-@media (max-width: 900px) {
-  .features {
-    grid-template-columns: 1fr;
-  }
-
-  .coming-next {
-    margin: 80px auto;
-    padding: 0 20px;
-  }
-
-  .hero {
-    padding: 60px 20px;
-  }
-
-  .header {
-    padding: 20px;
-  }
-}
-/* Quiz Call To Action */
-.quiz-cta {
-  max-width: 1100px;
-  margin: 120px auto 80px;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.quiz-cta h2 {
-  font-size: 32px;
-  margin-bottom: 12px;
-  color: var(--accent);
-}
-
-.quiz-cta p {
-  color: var(--muted);
-  max-width: 520px;
-  margin: 0 auto 28px;
-  line-height: 1.6;
-}
-
-.quiz-btn {
-  display: inline-block;
-  padding: 14px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #000;
-  background: var(--accent);
-  border-radius: 999px;
-  text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.quiz-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(230, 211, 163, 0.35);
-}
-/* Quiz Footer */
-.quiz-footer {
-  text-align: center;
-  margin: 60px 0 30px;
   font-size: 14px;
   color: var(--muted);
-}
-
-.profile-link {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.profile-link:hover {
-  text-decoration: underline;
-}
-.x-link {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.x-link:hover {
-  text-decoration: underline;
 }
