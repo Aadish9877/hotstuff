@@ -3,308 +3,172 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Codex Quiz – How It Works</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Codex Quiz</title>
 
   <style>
-    /* Quiz-specific styles */
-    .quiz-section {
-      max-width: 900px;
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: #0b120d;
+      color: #e6e6e6;
+    }
+
+    .container {
+      max-width: 720px;
       margin: 80px auto;
-      padding: 0 20px;
-    }
-
-    .quiz-card {
+      padding: 24px;
       background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 28px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .quiz-card h3 {
-      margin-bottom: 16px;
-      font-size: 22px;
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .question {
+      font-size: 18px;
+      margin-bottom: 20px;
     }
 
     .option {
       display: block;
-      margin: 10px 0;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.08);
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
       background: transparent;
-      color: inherit;
+      color: #e6e6e6;
       cursor: pointer;
-      transition: all 0.2s ease;
+      text-align: left;
     }
 
     .option:hover {
       background: rgba(255,255,255,0.06);
     }
 
-    .option.correct {
-      border-color: #6dd3a3;
-      background: rgba(109,211,163,0.15);
+    .correct {
+      background: rgba(100,200,150,0.25);
+      border-color: #64c896;
     }
 
-    .option.wrong {
-      border-color: #ff6b6b;
-      background: rgba(255,107,107,0.15);
+    .wrong {
+      background: rgba(255,100,100,0.25);
+      border-color: #ff6464;
     }
 
-    .result {
-      margin-top: 16px;
+    .feedback {
+      margin: 16px 0;
       font-weight: 600;
-      opacity: 0.9;
     }
 
-    .back-link {
-      margin-top: 40px;
-      display: inline-block;
-      opacity: 0.8;
-      text-decoration: none;
+    .next-btn {
+      margin-top: 10px;
+      padding: 12px 20px;
+      background: #e6d3a3;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
     }
 
-    .back-link:hover {
-      opacity: 1;
+    .next-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <header class="header">
-    <div class="header-inner">
-      <img src="codex-logo.png" alt="Codex Logo" class="logo" />
-      <div class="brand">
-        <h1>CODEX</h1>
-        <p>Interactive Quiz</p>
-      </div>
-    </div>
-  </header>
+<div class="container">
+  <h2>Codex Quiz</h2>
+  <div class="question" id="question"></div>
 
-  <!-- Quiz -->
-  <section class="quiz-section">
+  <button class="option" onclick="answer(0)"></button>
+  <button class="option" onclick="answer(1)"></button>
+  <button class="option" onclick="answer(2)"></button>
+  <button class="option" onclick="answer(3)"></button>
 
-    <h2>How Codex Works (Quick Quiz)</h2>
-    <p class="muted">
-      Test your understanding of Codex’s stablecoin flow.
-    </p>
+  <div class="feedback" id="feedback"></div>
 
-    <!-- Q1 -->
-    <div class="quiz-card">
-      <h3>1️⃣ User sends USDC — what happens first?</h3>
+  <button class="next-btn" id="nextBtn" onclick="next()" disabled>
+    Next →
+  </button>
+</div>
 
-      <button class="option" onclick="check(this, false)">Ethereum settlement</button>
-      <button class="option" onclick="check(this, true)">Batch & Route</button>
-      <button class="option" onclick="check(this, false)">Native FX</button>
-
-      <div class="result"></div>
-    </div>
-
-    <!-- Q2 -->
-    <div class="quiz-card">
-      <h3>2️⃣ Why does Codex batch transactions?</h3>
-
-      <button class="option" onclick="check(this, false)">For speculation</button>
-      <button class="option" onclick="check(this, true)">To reduce cost & congestion</button>
-      <button class="option" onclick="check(this, false)">To delay settlement</button>
-
-      <div class="result"></div>
-    </div>
-
-    <!-- Q3 -->
-    <div class="quiz-card">
-      <h3>3️⃣ Where does final settlement happen?</h3>
-
-      <button class="option" onclick="check(this, true)">Ethereum</button>
-      <button class="option" onclick="check(this, false)">Codex offchain</button>
-      <button class="option" onclick="check(this, false)">Centralized server</button>
-
-      <div class="result"></div>
-    </div>
-
-    <a href="index.html" class="back-link">← Back to Visual Explainer</a>
-
-  </section>
-
-  <footer class="footer">
-    Built with ❤️ by @TheEncryptedAnt · Community-built Codex quiz
-  </footer>
-
-  <script>
-const quizData = [
-  {
-    question: "What is Codex primarily focused on?",
-    options: [
-      "NFT trading",
-      "Stablecoins and payments",
-      "Gaming",
-      "Social media"
-    ],
-    correct: 1
-  },
-  {
-    question: "Codex is built on which blockchain?",
-    options: [
-      "Solana",
-      "Polygon",
-      "Ethereum",
-      "Avalanche"
-    ],
-    correct: 2
-  },
-  {
-    question: "Why does Codex batch transactions?",
-    options: [
-      "To increase delays",
-      "To reduce cost and congestion",
-      "For speculation",
-      "For mining rewards"
-    ],
-    correct: 1
-  },
-  {
-    question: "What does native FX enable on Codex?",
-    options: [
-      "NFT swaps",
-      "Onchain stablecoin swaps",
-      "Offchain banking",
-      "Mining incentives"
-    ],
-    correct: 1
-  },
-  {
-    question: "Where does final settlement happen on Codex?",
-    options: [
-      "Codex offchain servers",
-      "Centralized exchange",
-      "Ethereum",
-      "Sidechain only"
-    ],
-    correct: 2
-  },
-  {
-    question: "What type of network is Codex?",
-    options: [
-      "Layer 1",
-      "Layer 2",
-      "Sidechain",
-      "Testnet only"
-    ],
-    correct: 1
-  },
-  {
-    question: "Which asset type is Codex optimized for?",
-    options: [
-      "Memecoins",
-      "Stablecoins",
-      "Governance tokens",
-      "NFTs"
-    ],
-    correct: 1
-  },
-  {
-    question: "What problem does Codex mainly solve?",
-    options: [
-      "High gas fees for NFTs",
-      "Unstable meme trading",
-      "Inefficient stablecoin payments",
-      "Gaming latency"
-    ],
-    correct: 2
-  },
-  {
-    question: "What makes Codex different from Ethereum L1?",
-    options: [
-      "More validators",
-      "Stablecoin-first design",
-      "Proof of work",
-      "Faster NFTs"
-    ],
-    correct: 1
-  },
-  {
-    question: "Codex is best suited for which use case?",
-    options: [
-      "Onchain gaming",
-      "Payments and FX",
-      "NFT minting",
-      "DAO voting"
-    ],
-    correct: 1
-  }
+<script>
+const quiz = [
+  { q: "What is Codex focused on?", o: ["NFTs","Stablecoins & Payments","Gaming","Social"], a:1 },
+  { q: "Codex settles on which chain?", o: ["Solana","Polygon","Ethereum","Avalanche"], a:2 },
+  { q: "Why does Codex batch transactions?", o: ["Delay","Reduce cost","Speculation","Mining"], a:1 },
+  { q: "What does native FX mean?", o: ["NFT swaps","Stablecoin swaps","Offchain","Mining"], a:1 },
+  { q: "Codex is a…", o: ["Layer 1","Layer 2","Sidechain","Bridge"], a:1 },
+  { q: "Optimized asset?", o: ["Memecoins","Stablecoins","NFTs","Gov tokens"], a:1 },
+  { q: "Main use case?", o: ["Gaming","Payments & FX","NFT mint","DAO"], a:1 },
+  { q: "Final settlement?", o: ["Offchain","CEX","Ethereum","Server"], a:2 },
+  { q: "Codex reduces…", o: ["Speed","Liquidity","Fees","Security"], a:2 },
+  { q: "Best for?", o: ["NFTs","Payments","Memes","Gaming"], a:1 }
 ];
 
-let currentQuestion = 0;
+let i = 0;
 let score = 0;
-let answered = false;
+let locked = false;
 
-const questionEl = document.getElementById("question");
-const optionButtons = document.querySelectorAll(".options button");
-const feedbackEl = document.getElementById("feedback");
+const qEl = document.getElementById("question");
+const opts = document.querySelectorAll(".option");
+const fb = document.getElementById("feedback");
 const nextBtn = document.getElementById("nextBtn");
 
-loadQuestion();
+load();
 
-function loadQuestion() {
-  answered = false;
-  feedbackEl.textContent = "";
+function load() {
+  locked = false;
+  fb.textContent = "";
   nextBtn.disabled = true;
 
-  const q = quizData[currentQuestion];
-  questionEl.textContent = `${currentQuestion + 1}. ${q.question}`;
-
-  optionButtons.forEach((btn, index) => {
-    btn.textContent = q.options[index];
-    btn.className = "";
-    btn.disabled = false;
-    btn.onclick = () => selectAnswer(index);
+  qEl.textContent = `${i+1}. ${quiz[i].q}`;
+  opts.forEach((b, idx) => {
+    b.textContent = quiz[i].o[idx];
+    b.className = "option";
+    b.disabled = false;
   });
 }
 
-function selectAnswer(selectedIndex) {
-  if (answered) return;
-  answered = true;
+function answer(idx) {
+  if (locked) return;
+  locked = true;
 
-  const correctIndex = quizData[currentQuestion].correct;
+  opts.forEach(b => b.disabled = true);
 
-  optionButtons.forEach(btn => btn.disabled = true);
-
-  if (selectedIndex === correctIndex) {
-    optionButtons[selectedIndex].classList.add("correct");
-    feedbackEl.textContent = "✅ Correct!";
+  if (idx === quiz[i].a) {
+    opts[idx].classList.add("correct");
+    fb.textContent = "✅ Correct";
     score++;
   } else {
-    optionButtons[selectedIndex].classList.add("wrong");
-    optionButtons[correctIndex].classList.add("correct");
-    feedbackEl.textContent = "❌ Wrong answer";
+    opts[idx].classList.add("wrong");
+    opts[quiz[i].a].classList.add("correct");
+    fb.textContent = "❌ Wrong";
   }
 
   nextBtn.disabled = false;
 }
 
-function nextQuestion() {
-  currentQuestion++;
-  if (currentQuestion < quizData.length) {
-    loadQuestion();
+function next() {
+  i++;
+  if (i < quiz.length) {
+    load();
   } else {
-    showResult();
+    document.querySelector(".container").innerHTML = `
+      <h2>Quiz Completed 🎉</h2>
+      <p>Your score: <strong>${score} / ${quiz.length}</strong></p>
+      <button class="next-btn" onclick="location.reload()">Restart</button>
+    `;
   }
 }
-
-function showResult() {
-  document.querySelector(".quiz-card").innerHTML = `
-    <h2>Quiz Completed 🎉</h2>
-    <p>Your Score: <strong>${score} / ${quizData.length}</strong></p>
-    <p>Thanks for learning Codex.</p>
-    <button onclick="location.reload()">Restart Quiz</button>
-  `;
-}
 </script>
-
 
 </body>
 </html>
