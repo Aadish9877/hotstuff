@@ -184,3 +184,20 @@ footer {
   transform: translateY(-2px);
   box-shadow: 0 10px 30px rgba(230, 211, 163, 0.35);
 }
+/* Quiz Footer */
+.quiz-footer {
+  text-align: center;
+  margin: 60px 0 30px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.profile-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.profile-link:hover {
+  text-decoration: underline;
+}
