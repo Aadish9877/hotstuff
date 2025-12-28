@@ -218,7 +218,26 @@
   }
 
   function selectAnswer(i) {
-    if (i === quiz[index].a) score++;
+  const buttons = document.querySelectorAll(".option");
+  const correctIndex = quiz[index].a;
+
+  // disable all buttons + show correct / wrong
+  buttons.forEach((btn, idx) => {
+    btn.classList.add("disabled");
+
+    if (idx === correctIndex) {
+      btn.classList.add("correct");
+    }
+
+    if (idx === i && i !== correctIndex) {
+      btn.classList.add("wrong");
+    }
+  });
+
+  if (i === correctIndex) score++;
+
+  // ⏳ wait before loading next question
+  setTimeout(() => {
     index++;
 
     if (index < quiz.length) {
@@ -226,17 +245,9 @@
     } else {
       endQuiz();
     }
-  }
+  }, 800); // ← THIS is the key
+}
 
-  function endQuiz() {
-    document.getElementById("quiz-box").classList.add("hidden");
-    document.getElementById("score-box").classList.remove("hidden");
-
-    progressBar.style.width = "100%";
-
-    document.getElementById("scoreText").textContent =
-      `You scored ${score} out of ${quiz.length}`;
-  }
 
   loadQuestion();
 </script>
