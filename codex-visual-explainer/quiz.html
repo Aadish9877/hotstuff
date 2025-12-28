@@ -221,7 +221,6 @@
   const buttons = document.querySelectorAll(".option");
   const correctIndex = quiz[index].a;
 
-  // disable all buttons + show correct / wrong
   buttons.forEach((btn, idx) => {
     btn.classList.add("disabled");
 
@@ -236,17 +235,16 @@
 
   if (i === correctIndex) score++;
 
-  // ⏳ wait before loading next question
   setTimeout(() => {
     index++;
-
     if (index < quiz.length) {
       loadQuestion();
     } else {
       endQuiz();
     }
-  }, 800); // ← THIS is the key
+  }, 800);
 }
+
 
 
   loadQuestion();
