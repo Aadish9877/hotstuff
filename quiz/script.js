@@ -53,6 +53,8 @@ const questions = [
 
 let current = 0;
 let score = 0;
+let timerInterval = null;
+let timeLeft = 30;
 
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
@@ -62,6 +64,7 @@ const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
 const progressEl = document.getElementById("progress");
 const scoreText = document.getElementById("score-text");
+const timerEl = document.getElementById("timer");
 
 document.getElementById("start-btn").onclick = () => {
   startScreen.classList.remove("active");
@@ -85,9 +88,29 @@ function loadQuestion() {
     div.onclick = () => selectOption(div, i);
     optionsEl.appendChild(div);
   });
+
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timeLeft = 30;
+  timerEl.textContent = timeLeft + "s";
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft + "s";
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      autoNextQuestion();
+    }
+  }, 1000);
 }
 
 function selectOption(el, index) {
+  clearInterval(timerInterval);
+
   const correct = questions[current].answer;
   const options = document.querySelectorAll(".option");
 
@@ -104,9 +127,22 @@ function selectOption(el, index) {
     if (current < questions.length) {
       loadQuestion();
     } else {
-      quizScreen.classList.remove("active");
-      resultScreen.classList.add("active");
-      scoreText.textContent = `You scored ${score} out of ${questions.length}`;
+      endQuiz();
     }
   }, 1200);
+}
+
+function autoNextQuestion() {
+  current++;
+  if (current < questions.length) {
+    loadQuestion();
+  } else {
+    endQuiz();
+  }
+}
+
+function endQuiz() {
+  quizScreen.classList.remove("active");
+  resultScreen.classList.add("active");
+  scoreText.textContent = `You scored ${score} out of ${questions.length}`;
 }
